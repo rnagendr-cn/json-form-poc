@@ -1,0 +1,11 @@
+.dropdown {
+  width: 300px;
+  font-size: 16px;
+  padding: 0.4em 0.6em;
+}
+
+.dropdown__label {
+  font-weight: bold;
+  font-size: 18px;
+  padding: 0.2em 0.1em;
+}

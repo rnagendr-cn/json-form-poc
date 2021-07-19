@@ -1,15 +1,106 @@
+// export const json = {
+//   expectation: "expect_column_values_to_be_unique",
+//   properties: {
+//     string_input: {
+//       name: "string_input",
+//       type: "string",
+//       default: "",
+//       value: "Default value",
+//       required: true,
+//       description: "Enter value",
+//       mostly: "",
+//     },
+//     number_input: {
+//       name: "number_input",
+//       type: "number",
+//       default: "",
+//       value: 10,
+//       required: true,
+//       description: "Enter value",
+//       mostly: "",
+//     },
+//     checkbox_input: {
+//       name: "checkbox_input",
+//       type: "checkbox",
+//       default: "",
+//       value: true,
+//       required: true,
+//       description: "Enter value",
+//       mostly: "",
+//     },
+//     radio_input: [
+//       {
+//         name: "checkbox_input",
+//         type: "checkbox",
+//         default: "",
+//         value: true,
+//         required: true,
+//         description: "Enter value",
+//         mostly: "",
+//       }
+//     ]
+//   },
+//   status: true,
+// }
+
 export const json = {
   expectation: "expect_column_values_to_be_unique",
-  properties: {
-    column_name: {
-      name: "column_name",
+  properties: [
+    {
+      name: "string_input",
       type: "string",
       default: "",
-      value: "",
+      value: "Default value",
       required: true,
       description: "Enter value",
       mostly: "",
     },
-  },
+    {
+      name: "number_input",
+      type: "number",
+      default: "",
+      value: 10,
+      required: true,
+      description: "Enter value",
+      mostly: "",
+    },
+    {
+      name: "checkbox_input",
+      type: "checkbox",
+      default: "",
+      value: true,
+      required: true,
+      description: "Enter value",
+      mostly: "",
+    },
+    {
+      name: "radio_input",
+      type: "radio",
+      default: "",
+      value: false,
+      required: false,
+      description: "Enter value",
+      mostly: "",
+    },
+    {
+      name: "dropdown_input",
+      type: "dropdown",
+      default: "",
+      value: "India",
+      options: ["India", "US", "UK", "China", "Australia"],
+      required: false,
+      description: "Enter value",
+      mostly: "",
+    },
+    {
+      name: "date_range_input",
+      type: "dateRange",
+      default: "",
+      value: ["01/02/2020", "01/20/2020"],
+      required: false,
+      description: "Select date range",
+      mostly: "",
+    },
+  ],
   status: true,
 }

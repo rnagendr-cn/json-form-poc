@@ -1,37 +1,80 @@
-import React from "react"
-import TextBox from "./templates/TextBox"
-import { isObject } from "lodash"
+import React, { useEffect, useReducer } from "react"
+import {
+  TextBox,
+  NumberInput,
+  Checkbox,
+  Radio,
+  Dropdown,
+  DateRange,
+} from "./templates"
 import { json } from "../data/json"
-import slugToText from "../utils/slugToText"
 import "./Unique.css"
 
 const Unique = () => {
-  console.log(json)
+  // Reducer setup ---------------------------------------------------
+  const initializeData = () =>
+    json.properties.map((d, i) => ({
+      i,
+      ...d,
+    }))
 
-  const inputType = (d) => {
-    if (d.type === "string") {
-      return (
-        <TextBox
-          id={d.name}
-          label={slugToText(d.name)}
-          defaultValue={d.value}
-          required={d.required}
-        />
-      )
+  const reducer = (data, action) =>
+    data.map((d) => {
+      if (action.i === d.i)
+        return {
+          ...d,
+          value: action.value,
+        }
+      else return d
+    })
+
+  const [data, dispatch] = useReducer(reducer, initializeData())
+
+  useEffect(() => {
+    console.log(data)
+  }, [data])
+
+  // Inputs logic ---------------------------------------------------
+  const generateInputs = (d) => {
+    const inputType = (d) => {
+      const mapping = {
+        string: <TextBox data={d} dispatch={dispatch} />,
+        number: <NumberInput data={d} dispatch={dispatch} />,
+        checkbox: <Checkbox data={d} dispatch={dispatch} />,
+        radio: <Radio data={d} dispatch={dispatch} />,
+        dropdown: <Dropdown data={d} dispatch={dispatch} />,
+        dateRange: <DateRange data={d} dispatch={dispatch} />,
+      }
+      return mapping[d.type]
+    }
+
+    return d.map((input) => inputType(input))
+  }
+
+  const validateForm = () => {
+    console.log("submitted!")
+    return true
+  }
+
+  const handleSubmit = () => {
+    if (validateForm()) {
+      console.log("Form is valid!")
+      // Make API call
+    } else {
+      console.log("Errors!")
+      // throw errors
     }
   }
 
-  const generateInputs = (json) => {
-    if (isObject(json.properties)) {
-      const names = Object.keys(json.properties)
-      console.log(names)
-      return names.map((name) => {
-        return inputType(json.properties[name])
-      })
-    }
-  }
-
-  return <div className="customLayout">{generateInputs(json)}</div>
+  return (
+    <form className="customLayout" onSubmit={handleSubmit}>
+      {generateInputs(data)}
+      <button className="submit" type="submit">
+        Submit
+      </button>
+      {/* <DateRange /> */}
+    </form>
+  )
 }
 
 export default Unique

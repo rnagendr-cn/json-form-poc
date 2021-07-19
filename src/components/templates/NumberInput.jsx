@@ -1,38 +1,38 @@
 import React from "react"
 import slugToText from "../../utils/slugToText"
-import "./TextBox.css"
+import "./NumberInput.css"
 
-const TextBox = ({ data, dispatch }) => {
+const NumberInput = ({ data, dispatch }) => {
   let id = data.name,
     label = slugToText(data.name),
     defaultValue = data.value,
     required = data.required,
-    minLength,
-    maxLength,
+    min,
+    max,
     placeholder,
     readOnly
 
   return (
     <>
-      <label for={id} className="textInput__label">
+      <label for={id} className="numberInput__label">
         {label}
       </label>
       <input
         id={id}
-        className="textInput"
-        type="text"
+        className="numberInput"
+        type="number"
         value={defaultValue}
         required={required}
-        minLength={minLength}
-        maxLength={maxLength}
+        min={min}
+        max={max}
         placeholder={placeholder}
         readOnly={readOnly}
         onChange={(e) => {
-          dispatch({ value: e.target.value, i: data.i })
+          dispatch({ value: Number(e.target.value), i: data.i })
         }}
       />
     </>
   )
 }
 
-export default TextBox
+export default NumberInput
